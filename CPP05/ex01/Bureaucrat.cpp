@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat () {}
 
@@ -27,6 +28,7 @@ std::string const& Bureaucrat::getName() const
 {
 	return this->_name;
 }
+
 int Bureaucrat::getGrade() const
 {
 	return this->_grade;
@@ -69,3 +71,19 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& b)
 	os << b.getName() << ", bureaucrat grade " << b.getGrade() << ".";
 	return (os);
 }
+
+
+
+void Bureaucrat::signForm(Form& f)
+{
+	if (this->getGrade() <= f.getSgrade())
+	{
+		f.beSigned(*this);
+		std::cout << this->getName() << " signed " << f.getName() << std::endl; 
+	}
+	else
+		std::cout << this->getName() << " couldn't sign " << f.getName()<< " because bureaucrat's rank isn't high enough." << std::endl; 
+}
+
+
+
