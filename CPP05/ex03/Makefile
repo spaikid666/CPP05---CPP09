@@ -1,4 +1,4 @@
-NAME 					= ex02
+NAME 					= ex03
 
 C++						= c++ -std=c++98
 
@@ -25,7 +25,7 @@ clean:
 						${REMOVE}
 
 fclean:					clean
-						rm -f ex02
+						rm -f ex03
 						
 re:						fclean all
 
