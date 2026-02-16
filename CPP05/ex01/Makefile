@@ -5,7 +5,8 @@ C++						= c++ -std=c++98
 STD_FLAGS 				= -Wall -Wextra -Werror
 
 SRCS					= main.cpp \
-						  Bureaucrat.cpp
+						  Bureaucrat.cpp \
+						  Form.cpp
 						  						  
 OBJS					= ${SRCS:.cpp=.o}
 

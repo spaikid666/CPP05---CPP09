@@ -82,7 +82,7 @@ void Bureaucrat::signForm(Form& f)
 		std::cout << this->getName() << " signed " << f.getName() << std::endl; 
 	}
 	else
-		std::cout << this->getName() << " couldn't sign " << f.getName()<< " because bureaucrat's rank isn't high enough." << std::endl; 
+		std::cout << this->getName() << " couldn't sign " << f.getName() << " becuase " << "the rank of the bureaucrat isn't high enough." << std::endl; 
 }
 
 

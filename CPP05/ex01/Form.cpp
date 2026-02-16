@@ -1,5 +1,5 @@
-#include "Form.hpp"
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Form::Form () {}
 
@@ -79,10 +79,17 @@ void Form::beSigned(Bureaucrat const& b)
 
 std::ostream& operator<<(std::ostream& os, const Form& f)
 {
+	std::string issigned;
+
+	if (f.getSigned() == true)
+		issigned = "Yes";
+	else
+		issigned = "No";
+
 	os << "Form name: " << f.getName() << "." << std::endl
-	<< "Form Signed: " << f.getSigned() << "." << std::endl
-	<< "Form's grade to be signed: " << f.getSgrade() << "." << std::endl
-	<< "Form's grade to be executed: " << f.getEgrade() << "." << std::endl;
+	<< "Form signed: " << issigned << "." << std::endl
+	<< "Form's sign grade: " << f.getSgrade() << "." << std::endl
+	<< "Form's execution grade: " << f.getEgrade() << "." << std::endl;
 
 	return (os);
 }
