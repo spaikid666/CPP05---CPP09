@@ -4,7 +4,7 @@ int main()
 {
 	try
 	{
-		Bureaucrat b1("BuroHigh", 1);
+		Bureaucrat b1("BureauHigh", 1);
 		std::cout << b1 << std::endl;
 
 		std::cout << "Incrementing the bureaucrat level by 1." << std::endl;
@@ -21,7 +21,7 @@ int main()
 	
 	try
 	{
-		Bureaucrat b2("BuroLow", 150);
+		Bureaucrat b2("BureauLow", 150);
 		std::cout << b2 << std::endl;
 
 		std::cout << "Decrementing the bureaucrat level by 1." << std::endl;
