@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat () {}
 
@@ -74,7 +74,7 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& b)
 
 
 
-void Bureaucrat::signForm(Form& f)
+void Bureaucrat::signForm(AForm& f)
 {
 	if (this->getGrade() <= f.getSgrade())
 	{
@@ -86,4 +86,7 @@ void Bureaucrat::signForm(Form& f)
 }
 
 
-
+void Bureaucrat::executeForm(AForm& f) const
+{
+	f.execute(*this);
+}
