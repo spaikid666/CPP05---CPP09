@@ -15,6 +15,8 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 	return *this;
 }
 
+PresidentialPardonForm::~PresidentialPardonForm() {}
+
 void PresidentialPardonForm::execute (Bureaucrat const& executor) const
 {
 	if (this->getSigned() == false)

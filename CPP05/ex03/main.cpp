@@ -2,24 +2,24 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
 	try
 	{
 		Bureaucrat jhon("Jhon", 1);
-		Bureaucrat clara("Clara", 100);
 		Bureaucrat junior("Junior", 150);
 
-		AForm *sf = new ShrubberyCreationForm("tree");
-		AForm *rf = new RobotomyRequestForm("Marvin");
-		AForm *pf = new PresidentialPardonForm("Borat");
-		
-		std::cout << "########### ShrubberyCreationForm ###########" << std::endl;
+		Intern lacayo;
+		AForm* rrf;
+
+		rrf = lacayo.makeForm("robotomy request", "Bender");
+
 		std::cout << "# Test 1: the form is not signed" << std::endl;
 		try
 		{
-			sf->execute(jhon);
+			rrf->execute(jhon);
 		}
 
 		catch (std::exception & e)
@@ -32,7 +32,7 @@ int main()
 		std::cout << "# Test 2: not enough grade to sign the form" << std::endl;\
 		try
 		{
-			junior.signForm(*sf);
+			junior.signForm(*rrf);
 		}
 
 		catch (std::exception & e)
@@ -45,8 +45,8 @@ int main()
 		std::cout << "# Test 3: the is signed but not enough execution grade" << std::endl;\
 		try
 		{
-			jhon.signForm(*sf);
-			junior.executeForm(*sf);
+			jhon.signForm(*rrf);
+			junior.executeForm(*rrf);
 		}
 
 		catch (std::exception & e)
@@ -59,7 +59,7 @@ int main()
 		std::cout << "# Test 4: execution good" << std::endl;\
 		try
 		{
-			jhon.executeForm(*sf);
+			jhon.executeForm(*rrf);
 		}
 
 		catch (std::exception & e)
@@ -69,113 +69,16 @@ int main()
 
 		std::cout << std::endl;
 
-		std::cout << "########### RobotomyRequestForm ###########" << std::endl;
-		std::cout << "# Test 1: the form is not signed" << std::endl;
+		std::cout << "### With an invalid form" << std::endl;
+
 		try
 		{
-			rf->execute(jhon);
+			AForm* fail = lacayo.makeForm("failure", "Test");
 		}
-
 		catch (std::exception & e)
 		{
 			std::cerr << e.what() << std::endl;
 		}
-
-		std::cout << std::endl;
-
-		std::cout << "# Test 2: not enough grade to sign the form" << std::endl;\
-		try
-		{
-			junior.signForm(*rf);
-		}
-
-		catch (std::exception & e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-
-		std::cout << std::endl;
-
-		std::cout << "# Test 3: the is signed but not enough execution grade" << std::endl;\
-		try
-		{
-			jhon.signForm(*rf);
-			junior.executeForm(*rf);
-		}
-
-		catch (std::exception & e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-
-		std::cout << std::endl;
-
-		std::cout << "# Test 4: execution good" << std::endl;\
-		try
-		{
-			jhon.executeForm(*rf);
-		}
-
-		catch (std::exception & e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-
-		std::cout << std::endl;
-
-		std::cout << "########### PresidentialPardonForm ###########" << std::endl;
-		std::cout << "# Test 1: the form is not signed" << std::endl;
-		try
-		{
-			pf->execute(jhon);
-		}
-
-		catch (std::exception & e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-
-		std::cout << std::endl;
-
-		std::cout << "# Test 2: not enough grade to sign the form" << std::endl;\
-		try
-		{
-			junior.signForm(*pf);
-		}
-
-		catch (std::exception & e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-
-		std::cout << std::endl;
-
-		std::cout << "# Test 3: the is signed but not enough execution grade" << std::endl;\
-		try
-		{
-			jhon.signForm(*pf);
-			junior.executeForm(*pf);
-		}
-
-		catch (std::exception & e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-
-		std::cout << std::endl;
-
-		std::cout << "# Test 4: execution good" << std::endl;\
-		try
-		{
-			jhon.executeForm(*pf);
-		}
-
-		catch (std::exception & e)
-		{
-			std::cerr << e.what() << std::endl;
-		}
-
-		std::cout << std::endl;
 	}
 
 	catch (std::exception & e)

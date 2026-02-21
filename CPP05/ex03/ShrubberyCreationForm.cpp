@@ -15,6 +15,8 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return *this;
 }
 
+ShrubberyCreationForm::~ShrubberyCreationForm() {}
+
 void ShrubberyCreationForm::execute (Bureaucrat const& executor) const
 {
 	if (this->getSigned() == false)
@@ -34,11 +36,11 @@ void ShrubberyCreationForm::execute (Bureaucrat const& executor) const
 	else
 		std::cout << executor.getName() << " executed " << this->getName() << std::endl;
 	
-	out << "	|	" << std::endl;
-	out << "   |||	" << std::endl;
-	out << "  |||||	" << std::endl;
-	out << " |||||||" << std::endl;
-	out << "|||||||||" << std::endl;
-	out << "   |||	" << std::endl;
+	out << "	|	      |     " << std::endl;
+	out << "   |||	     |||    " << std::endl;
+	out << "  |||||	    |||||   " << std::endl;
+	out << " |||||||   |||||||  " << std::endl;
+	out << "||||||||| ||||||||| " << std::endl;
+	out << "   |||	     |||    " << std::endl;
 	out.close();
 }

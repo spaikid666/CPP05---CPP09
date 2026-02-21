@@ -2,6 +2,9 @@
 #define INTER_HPP
 
 #include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 class Intern
 {
@@ -10,6 +13,18 @@ class Intern
 		Intern (const Intern& other);
 		Intern& operator=(const Intern& other);
 		~Intern();
+
+		class EmptyParameter : public std::exception
+		{
+			public:
+				const char* what() const throw ();
+		};
+
+		class InvalidForm : public std::exception
+		{
+			public:
+				const char* what() const throw ();
+		};
 
 		AForm* makeForm(std::string const& formName, std::string const& target);
 
