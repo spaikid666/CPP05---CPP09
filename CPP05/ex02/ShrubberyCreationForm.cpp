@@ -34,11 +34,11 @@ void ShrubberyCreationForm::execute (Bureaucrat const& executor) const
 	else
 		std::cout << executor.getName() << " executed " << this->getName() << std::endl;
 	
-	out << "	|	" << std::endl;
-	out << "   |||	" << std::endl;
-	out << "  |||||	" << std::endl;
-	out << " |||||||" << std::endl;
-	out << "|||||||||" << std::endl;
-	out << "   |||	" << std::endl;
+	out << "	|	      |     " << std::endl;
+	out << "   |||	     |||    " << std::endl;
+	out << "  |||||	    |||||   " << std::endl;
+	out << " |||||||   |||||||  " << std::endl;
+	out << "||||||||| ||||||||| " << std::endl;
+	out << "   |||	     |||    " << std::endl;
 	out.close();
 }

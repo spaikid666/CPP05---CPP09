@@ -3,7 +3,10 @@
 #include "RobotomyRequestForm.hpp"
 
 RobotomyRequestForm::RobotomyRequestForm () {}
-RobotomyRequestForm::RobotomyRequestForm (const std::string& target) : AForm("RobotomyRequestForm", 145, 137, target) {}
+RobotomyRequestForm::RobotomyRequestForm (const std::string& target) : AForm("RobotomyRequestForm", 145, 137, target)
+{
+	std::srand(std::time(NULL));
+}
 RobotomyRequestForm::RobotomyRequestForm (const RobotomyRequestForm& other) : AForm(other) {}
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
 {

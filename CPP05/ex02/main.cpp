@@ -8,7 +8,6 @@ int main()
 	try
 	{
 		Bureaucrat jhon("Jhon", 1);
-		Bureaucrat clara("Clara", 100);
 		Bureaucrat junior("Junior", 150);
 
 		AForm *sf = new ShrubberyCreationForm("Calamardo");
