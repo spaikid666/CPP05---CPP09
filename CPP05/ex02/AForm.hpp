@@ -13,7 +13,7 @@ class AForm
 		AForm(std::string _name, int _sgrade, int _egrade, std::string _target);
 		AForm(const AForm& other);
 		AForm& operator=(const AForm& other);
-		~AForm();
+		virtual ~AForm();
 
 		std::string const& getName(void) const;
 		bool getSigned(void) const;

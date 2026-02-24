@@ -74,6 +74,7 @@ int main()
 		try
 		{
 			AForm* fail = lacayo.makeForm("failure", "Test");
+			(void)fail;
 		}
 		catch (std::exception & e)
 		{

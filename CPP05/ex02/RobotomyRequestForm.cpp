@@ -18,6 +18,8 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 	return *this;
 }
 
+RobotomyRequestForm::~RobotomyRequestForm () {}
+
 void RobotomyRequestForm::execute (Bureaucrat const& executor) const
 {
 	if (this->getSigned() == false)

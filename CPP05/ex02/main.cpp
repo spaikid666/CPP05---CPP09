@@ -175,6 +175,10 @@ int main()
 		}
 
 		std::cout << std::endl;
+		
+		delete sf;
+        delete rf;
+        delete pf;
 	}
 
 	catch (std::exception & e)

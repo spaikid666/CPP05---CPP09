@@ -15,6 +15,8 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return *this;
 }
 
+ShrubberyCreationForm::~ShrubberyCreationForm () {}
+
 void ShrubberyCreationForm::execute (Bureaucrat const& executor) const
 {
 	if (this->getSigned() == false)
