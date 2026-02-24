@@ -2,8 +2,8 @@
 #include "AForm.hpp"
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm () {}
-RobotomyRequestForm::RobotomyRequestForm (const std::string& target) : AForm("RobotomyRequestForm", 145, 137, target)
+RobotomyRequestForm::RobotomyRequestForm () : AForm("no name", 72, 45, "no target") {}
+RobotomyRequestForm::RobotomyRequestForm (const std::string& target) : AForm("RobotomyRequestForm", 72, 45, target)
 {
 	std::srand(std::time(NULL));
 }

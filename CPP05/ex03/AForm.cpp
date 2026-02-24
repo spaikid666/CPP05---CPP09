@@ -14,6 +14,7 @@ AForm::AForm (std::string name, int sgrade, int egrade, std::string target) : _n
 		throw GradeTooHighException();
 	if (_egrade > 150)
 		throw GradeTooLowException();
+	this->_created = false;
 }
 
 AForm::AForm (const AForm& other) : _name(other._name), _sgrade(other._sgrade), _egrade(other._egrade) {}
@@ -56,6 +57,10 @@ std::string AForm::getTarget() const
 	return this->_target;
 }
 
+bool AForm::getCreated() const
+{
+	return this->_created;
+}
 
 
 const char *AForm::GradeTooHighException::what() const throw()
@@ -94,20 +99,16 @@ void AForm::beSigned(Bureaucrat const& b)
 
 std::ostream& operator<<(std::ostream& os, const AForm& f)
 {
-	std::string issigned;
-
-	if (f.getSigned() == true)
-		issigned = "Yes";
-	else
-		issigned = "No";
-
-	os << "AForm name: " << f.getName() << "." << std::endl
-	<< "AForm signed: " << issigned << "." << std::endl
-	<< "AForm's sign grade: " << f.getSgrade() << "." << std::endl
-	<< "AForm's execution grade: " << f.getEgrade() << "." << std::endl;
+	os << "Form name: " << f.getName() << "." << std::endl
+	<< "Form signed: " << (f.getSigned() ? "Yes" : "No") << "." << std::endl
+	<< "Form's sign grade: " << f.getSgrade() << "." << std::endl
+	<< "Form's execution grade: " << f.getEgrade() << "." << std::endl
+	<< "Form's is created: " << (f.getCreated() ? "Yes" : "No") << "." << std::endl;
 
 	return (os);
 }
 
-
-
+void AForm::setCreated(void)
+{
+	this->_created = true;
+}

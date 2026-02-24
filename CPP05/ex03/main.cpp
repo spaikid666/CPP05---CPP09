@@ -60,6 +60,8 @@ int main()
 		try
 		{
 			jhon.executeForm(*rrf);
+			std::cout << std::endl;
+			std::cout << *rrf << std::endl;
 		}
 
 		catch (std::exception & e)

@@ -2,7 +2,7 @@
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm () {}
+ShrubberyCreationForm::ShrubberyCreationForm () : AForm ("no name", 145, 137, "no target") {}
 ShrubberyCreationForm::ShrubberyCreationForm (const std::string& target) : AForm("ShrubberyCreationForm", 145, 137, target) {}
 ShrubberyCreationForm::ShrubberyCreationForm (const ShrubberyCreationForm& other) : AForm(other) {}
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)

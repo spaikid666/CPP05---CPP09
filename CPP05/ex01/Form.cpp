@@ -79,15 +79,8 @@ void Form::beSigned(Bureaucrat const& b)
 
 std::ostream& operator<<(std::ostream& os, const Form& f)
 {
-	std::string issigned;
-
-	if (f.getSigned() == true)
-		issigned = "Yes";
-	else
-		issigned = "No";
-
 	os << "Form name: " << f.getName() << "." << std::endl
-	<< "Form signed: " << issigned << "." << std::endl
+	<< "Form signed: " << (f.getSigned() ? "Yes" : "No") << "." << std::endl
 	<< "Form's sign grade: " << f.getSgrade() << "." << std::endl
 	<< "Form's execution grade: " << f.getEgrade() << "." << std::endl;
 

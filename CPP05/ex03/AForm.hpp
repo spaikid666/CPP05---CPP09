@@ -20,6 +20,7 @@ class AForm
 		int getSgrade(void) const;
 		int getEgrade(void) const;
 		std::string getTarget() const;
+		bool getCreated(void) const;
 
 		class GradeTooHighException : public std::exception
 		{
@@ -46,6 +47,8 @@ class AForm
 		void beSigned(Bureaucrat const& b);
 
 		virtual void execute(Bureaucrat const & executor) const = 0;
+
+		void setCreated(void);
 
 	private:
 		std::string _name;

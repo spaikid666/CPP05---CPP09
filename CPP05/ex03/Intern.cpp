@@ -18,18 +18,21 @@ const char *Intern::InvalidForm::what() const throw ()
 AForm* Intern::createShrubbery(std::string const& target)
 {
 	static ShrubberyCreationForm form(target);
+	form.setCreated();
 	return(&form);
 }
 
 AForm* Intern::createRobotomy(std::string const& target)
 {
 	static RobotomyRequestForm form(target);
+	form.setCreated();
 	return(&form);
 }
 
 AForm* Intern::createPresidential(std::string const& target)
 {
 	static PresidentialPardonForm form(target);
+	form.setCreated();
 	return(&form);
 }
 

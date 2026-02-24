@@ -2,8 +2,8 @@
 #include "AForm.hpp"
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm () {}
-PresidentialPardonForm::PresidentialPardonForm (const std::string& target) : AForm("PresidentialPardonForm", 145, 137, target) {}
+PresidentialPardonForm::PresidentialPardonForm () : AForm("no name", 25, 5, "no target") {}
+PresidentialPardonForm::PresidentialPardonForm (const std::string& target) : AForm("PresidentialPardonForm", 25, 5, target) {}
 PresidentialPardonForm::PresidentialPardonForm (const PresidentialPardonForm& other) : AForm(other) {}
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& other)
 {
