@@ -1,12 +1,11 @@
-NAME 					= ex00
+NAME 					= ex01
 
 C++						= c++ -std=c++98
 
 STD_FLAGS 				= -Wall -Wextra -Werror
 
 SRCS					= main.cpp \
-						  ScalarConverter.cpp \
-						  utils.cpp
+						  Bureaucrat.cpp
 						  						  
 OBJS					= ${SRCS:.cpp=.o}
 
@@ -21,7 +20,7 @@ clean:
 						${REMOVE}
 
 fclean:					clean
-						rm -f ex00
+						rm -f ex01
 						
 re:						fclean all
 

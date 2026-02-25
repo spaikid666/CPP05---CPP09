@@ -1,4 +1,5 @@
 #include "ScalarConverter.hpp"
+#include "utils.hpp"
 
 ScalarConverter::ScalarConverter() {}
 
@@ -8,21 +9,30 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {}
 
 ScalarConverter::~ScalarConverter () {}
 
-
-static void convert(const std::string str)
+void ScalarConverter::convert(const std::string& str)
 {
-	if !isdigit(str)
-	{
-		for (int i = 0; str[i] != '\0'; i++)
-		{
-			if (i > 1)
-				return;
-		}
-
-		if (str[0] < 36 && str[0] > 127)
-			bool non_print = 1;		
-		std::cout << str << std::endl;
-	}
-
-	
+    switch (detectType(str))
+    {
+        case TYPE_PSEUDO:
+            displayPseudoLiterals(str);
+            break;
+        case TYPE_CHAR:
+            displayChar(str);
+            break;
+        case TYPE_INT:
+            displayInt(str);
+            break;
+        case TYPE_FLOAT:
+            displayFloat(str);
+            break;
+        case TYPE_DOUBLE:
+            displayDouble(str);
+            break;
+        default:
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: impossible\n";
+            std::cout << "double: impossible\n";
+            break;
+    }
 }
