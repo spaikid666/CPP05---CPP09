@@ -20,17 +20,22 @@ bool isChar(const std::string& str)
 
 bool isDigit(const std::string& str)
 {
-	std::string::size_type i = 0;
+    std::string::size_type i = 0;
+
+    if (str.empty())
+        return false;
 
     if (str[i] == '+' || str[i] == '-')
         i++;
-	
-	for (; i < str.size(); i++)
-	{
-		if (!std::isdigit(static_cast<unsigned char>(str[i])))
-			return false;
-	}
-	return true;
+
+    if (i == str.size())
+        return false;
+
+    for (; i < str.size(); i++)
+        if (!std::isdigit(static_cast<unsigned char>(str[i])))
+            return false;
+
+    return true;
 }
 
 bool isFloat(const std::string& str)
@@ -59,9 +64,7 @@ bool isFloat(const std::string& str)
             seenDot = true;
         }
         else if (std::isdigit(c))
-        {
             seenDigit = true;
-        }
         else
             return false;
     }
@@ -95,9 +98,7 @@ bool isDouble(const std::string& str)
             seenDot = true;
         }
         else if (std::isdigit(c))
-        {
             seenDigit = true;
-        }
         else
             return false;
     }
@@ -118,67 +119,166 @@ bool pseudoLiterals(const std::string& str)
 	return false;
 }
 
-void displayChars(const std::string& str)
+// =====================
+// Type detection
+// =====================
+
+LiteralType detectType(const std::string& s)
 {
-	bool displayable = true;
-	//print the char form
-	for (std::string::size_type i = 0; i < str.size() ; i++)
-	{
-		if (!(str[i] >= 36) && !(str[i] <= 136))
-		{
-			displayable = false;
-			break;
-		}
-	}
-	if (displayable == true)
-		std::cout << "char :" << str;
-	else
-		std::cout << "char: Non displayable";
+    if (s.empty()) return T_INVALID;
+    if (pseudoLiterals(s)) return T_PSEUDO;
+    if (isChar(s)) return T_CHAR;
+    if (isDigit(s)) return T_INT;
+    if (isFloat(s)) return T_FLOAT;
+    if (isDouble(s)) return T_DOUBLE;
+    return T_INVALID;
 }
 
-void displayInst(const std::string& str)
+// =====================
+// Conversion + printing helpers (kept static inside utils.cpp)
+// =====================
+
+static void printPseudo(const std::string& s)
 {
-	//print the int form
-	if (isDigit(str))
-		std::cout << "int :" << str;
+    std::cout << "char: impossible\n";
+    std::cout << "int: impossible\n";
+
+    if (s == "nan" || s == "nanf")
+    {
+        std::cout << "float: nanf\n";
+        std::cout << "double: nan\n";
+    }
+    else if (s[0] == '-')
+    {
+        std::cout << "float: -inff\n";
+        std::cout << "double: -inf\n";
+    }
+    else
+    {
+        std::cout << "float: +inff\n";
+        std::cout << "double: +inf\n";
+    }
 }
 
-void displayDoubles(const std::string& str)
+static void printAllFromDouble(double d)
 {
-	std::string temp = str.substr(0, str.size() - 1);
+    // char
+    std::cout << "char: ";
+    if (std::isnan(d) || std::isinf(d) || d < 0.0 || d > 255.0)
+        std::cout << "impossible\n";
+    else if (!std::isprint(static_cast<unsigned char>(d)))
+        std::cout << "Non displayable\n";
+    else
+        std::cout << "'" << static_cast<char>(d) << "'" << std::endl;
 
-	if (isDigit(temp) && str[str.size() - 1] == 'f')
-	{
-		//print the number and if its a float print it without the f
-	}
+    // int
+    std::cout << "int: ";
+    if (std::isnan(d) || std::isinf(d) ||
+        d < static_cast<double>(std::numeric_limits<int>::min()) ||
+        d > static_cast<double>(std::numeric_limits<int>::max()))
+        std::cout << "impossible\n";
+    else
+        std::cout << static_cast<int>(d) << std::endl;
+		
+    // float
+    std::cout << "float: ";
+    float f = static_cast<float>(d);
+    if (std::isnan(f))
+        std::cout << "nanf\n";
+    else if (std::isinf(f))
+        std::cout << (f < 0 ? "-inff\n" : "+inff\n");
+    else
+        std::cout << f << "f" << std::endl;
 
+    // double
+    std::cout << "double: ";
+    if (std::isnan(d))
+        std::cout << "nan" << std::endl;
+    else if (std::isinf(d))
+        std::cout << (d < 0 ? "-inf\n" : "+inf\n");
+    else
+        std::cout << d << std::endl;
 }
 
-void displayFloats(const std::string& str)
-{
-	std::string temp = str.substr(0, str.size() - 1);
+// =====================
+// The single public API used by ScalarConverter
+// =====================
 
-	if (isDigit(temp) && std::isalpha(str.size() - 1) == 'f')
-	{
-		displayDoubles(str);
-		std::cout << "f";
-	}
-}
-
-void displayPseudoLiterals(const std::string& str)
+void convertAndPrint(const std::string& s)
 {
-	std::cout << "char: impossible" << std::endl;
-	std::cout << "int: impossible" << std::endl;
-	if (str == "nan" || str == "nanf")
-		std::cout << "float: nanf" << std::endl;
-	else if (str == "+inf" || str == "+inff")
-		std::cout << "float: +inff" << std::endl;
-	else
-		std::cout << "float: -inff" << std::endl;
-	if (str == "nan" || str == "nanf")
-		std::cout << "double: nan" << std::endl;
-	else if (str == "+inf" || str == "+inff")
-		std::cout << "double: +inff" << std::endl;
-	else
-		std::cout << "double: -inff" << std::endl;
+    LiteralType t = detectType(s);
+
+    if (t == T_INVALID)
+    {
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: impossible"<< std::endl;
+		std::cout << "double: impossible" << std::endl;
+        return;
+    }
+
+    if (t == T_PSEUDO)
+    {
+        printPseudo(s);
+        return;
+    }
+
+    errno = 0;
+    char *end = 0;
+    double d = 0.0;
+
+    if (t == T_CHAR)
+    {
+        // actual type: char
+        char c = s[0];
+        d = static_cast<double>(c);
+    }
+    else if (t == T_INT)
+    {
+        long v = std::strtol(s.c_str(), &end, 10);
+        if (errno != 0 || end == s.c_str() || *end != '\0')
+        {
+            std::cout << "char: impossible" << std::endl;;
+            std::cout << "int: impossible" << std::endl;;
+            std::cout << "float: impossible" << std::endl;;
+            std::cout << "double: impossible" << std::endl;
+            return;
+        }
+
+        // actual type: int
+        int iv = static_cast<int>(v);
+        d = static_cast<double>(iv);
+    }
+    else if (t == T_FLOAT)
+    {
+        std::string core = s.substr(0, s.size() - 1);
+        double tmp = std::strtod(core.c_str(), &end);
+        if (errno != 0 || end == core.c_str() || *end != '\0')
+        {
+            std::cout << "char: impossible" << std::endl;
+            std::cout << "int: impossible" << std::endl;
+            std::cout << "float: impossible"<< std::endl;
+            std::cout << "double: impossible" << std::endl;
+            return;
+        }
+
+        float fv = static_cast<float>(tmp);
+        d = static_cast<double>(fv);
+    }
+    else if (t == T_DOUBLE)
+    {
+        double dv = std::strtod(s.c_str(), &end);
+        if (errno != 0 || end == s.c_str() || *end != '\0')
+        {
+            std::cout << "char: impossible" << std::endl;
+            std::cout << "int: impossible" << std::endl;
+            std::cout << "float: impossible"<< std::endl;
+            std::cout << "double: impossible" << std::endl;
+            return;
+        }
+
+        d = dv;
+    }
+
+    printAllFromDouble(d);
 }
