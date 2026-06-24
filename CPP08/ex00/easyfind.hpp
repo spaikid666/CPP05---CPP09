@@ -9,7 +9,7 @@ class NotFoundException : public std::exception
 	public:
 		virtual const char* what() const throw()
 		{
-			return "Ocurrence not found in the container.";
+			return "[ERROR]: Ocurrence not found in the container.";
 		}
 };
 
