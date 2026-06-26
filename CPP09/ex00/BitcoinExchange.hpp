@@ -22,6 +22,9 @@ class BitcoinExchange
 		void checkFile(const char* filePath);
 		void fileExtension(const std::string& filePath, std::string ext);
 		void fileNotEmpty(const std::string& filePath);
+		void fileFormat(const std::string& filePath);
+		bool checkDate(std::string& date);
+		bool checkPrice(double price);
 		void loadDataBase(const std::string& dbPath);
 		void printDataBase() const;
 

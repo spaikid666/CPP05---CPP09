@@ -10,12 +10,10 @@ int main(int argc, char** argv)
 
 	BitcoinExchange be;
 
-	be.checkFile(argv[1]);
 	be.loadDataBase("./data.csv");
+	be.checkFile(argv[1]);
 	
 	/* Print the database 
 	be.printDataBase();
 	*/
-
-	
 }
