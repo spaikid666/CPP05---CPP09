@@ -5,6 +5,7 @@ C++						= c++ -std=c++98
 STD_FLAGS 				= -Wall -Wextra -Werror
 
 SRCS					= main.cpp \
+						  RPN.cpp
 
 						  						  
 OBJS					= ${SRCS:.cpp=.o}
