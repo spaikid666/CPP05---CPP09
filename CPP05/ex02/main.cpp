@@ -41,7 +41,7 @@ int main()
 
 		std::cout << std::endl;
 
-		std::cout << "# Test 3: the is signed but not enough execution grade" << std::endl;\
+		std::cout << "# Test 3: the form is signed but not enough execution grade" << std::endl;\
 		try
 		{
 			jhon.signForm(*sf);
@@ -95,7 +95,7 @@ int main()
 
 		std::cout << std::endl;
 
-		std::cout << "# Test 3: the is signed but not enough execution grade" << std::endl;\
+		std::cout << "# Test 3: the form is signed but not enough execution grade" << std::endl;\
 		try
 		{
 			jhon.signForm(*rf);
@@ -149,7 +149,7 @@ int main()
 
 		std::cout << std::endl;
 
-		std::cout << "# Test 3: the is signed but not enough execution grade" << std::endl;\
+		std::cout << "# Test 3: the form is signed but not enough execution grade" << std::endl;\
 		try
 		{
 			jhon.signForm(*pf);
