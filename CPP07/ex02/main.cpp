@@ -44,7 +44,7 @@ int main()
 	test1[2] = 3;
 	Array<int> test3 = test1;
 	std::cout << "· The value of the 3rd element of the test1 array is: " << test1[2] << std::endl;
-	std::cout << "· The value of the 3rd element of the test1 array is: " << test3[2] << std::endl;
+	std::cout << "· The value of the 3rd element of the test3 array is: " << test3[2] << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -78,8 +78,8 @@ int main()
 
 	std::cout << "-- Deep Copy Test --" << std::endl;
 	Array<std::string> test5(test4);
-	std::cout << "· Accessing the memory direction of the 3rd element of the test1 array: " << std::endl;
-	std::cout << "The memory address for the third element of the test1 array is: " << &test4[2] << std::endl;
+	std::cout << "· Accessing the memory direction of the 3rd element of the test4 array: " << std::endl;
+	std::cout << "The memory address for the third element of the test4 array is: " << &test4[2] << std::endl;
 	std::cout << std::endl;
 	std::cout << "· Accessing the memory direction of the 3rd element of the test2 array: " << std::endl;
 		std::cout << "The memory address for the third element of the test2 array is: " << &test5[2] << std::endl;
@@ -89,7 +89,7 @@ int main()
 	std::cout << "-- Asignment Operator --" << std::endl;
 	test4[2] = "3";
 	Array<std::string> test6 = test4;
-	std::cout << "· The value of the 3rd element of the test1 array is: " << test4[2] << std::endl;
-	std::cout << "· The value of the 3rd element of the test1 array is: " << test6[2] << std::endl;
+	std::cout << "· The value of the 3rd element of the test4 array is: " << test4[2] << std::endl;
+	std::cout << "· The value of the 3rd element of the test4 array is: " << test6[2] << std::endl;
 	std::cout << std::endl;
 }
