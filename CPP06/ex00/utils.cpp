@@ -135,7 +135,7 @@ LiteralType detectType(const std::string& s)
 }
 
 // =====================
-// Conversion + printing helpers (kept static inside utils.cpp)
+// Conversion + printing helpers
 // =====================
 
 static void printPseudo(const std::string& s)
@@ -201,7 +201,7 @@ static void printAllFromDouble(double d)
 }
 
 // =====================
-// The single public API used by ScalarConverter
+// Print function
 // =====================
 
 void convertAndPrint(const std::string& s)
@@ -229,7 +229,6 @@ void convertAndPrint(const std::string& s)
 
     if (t == T_CHAR)
     {
-        // actual type: char
         char c = s[0];
         d = static_cast<double>(c);
     }
@@ -245,7 +244,6 @@ void convertAndPrint(const std::string& s)
             return;
         }
 
-        // actual type: int
         int iv = static_cast<int>(v);
         d = static_cast<double>(iv);
     }
