@@ -19,6 +19,15 @@ int main()
 	try
 	{
 		std::cout << "Found: " << *::easyfind(intV, 2) << std::endl;
+	}
+
+	catch (const std::exception& e)
+	{
+		std::cout << "Error: " << e.what() << std::endl;
+	}
+
+	try
+	{
 		std::cout << "Found: " << *::easyfind(intV, 6) << std::endl;
 	}
 
@@ -36,6 +45,15 @@ int main()
 	try
 	{
 		std::cout << "Found: " << *::easyfind(intL, 2) << std::endl;
+	}
+
+	catch (const std::exception& e)
+	{
+		std::cout << "Error: " << e.what() << std::endl;
+	}
+
+	try
+	{
 		std::cout << "Found: " << *::easyfind(intL, 6) << std::endl;
 	}
 
