@@ -4,7 +4,14 @@ RPN::RPN() {}
 
 RPN::RPN(const std::string &xpr) : _xpr(xpr)
 {
-	_result = parseStk(xpr);
+	try
+	{
+		_result = parseStk(xpr);
+	}
+	catch (const std::runtime_error &e)
+	{
+		std::cout << e.what();
+	}
 }
 
 RPN::RPN(const RPN &other)
@@ -58,8 +65,8 @@ int RPN::parseStk(const std::string &str)
 		{
 			if (stk.size() < 2)
 			{
-				std::cerr << "[ERROR]: Invalid expression." << std::endl;
-				exit(1);
+				std::string error = "[ERROR]: Invalid expression.";
+				throw std::runtime_error(error);
 			}
 
 			int right = stk.top();
@@ -75,8 +82,8 @@ int RPN::parseStk(const std::string &str)
 		{
 			if (stk.size() < 2)
 			{
-				std::cerr << "[ERROR]: Invalid expression." << std::endl;
-				exit(1);
+				std::string error = "[ERROR]: Invalid expression.";
+				throw std::runtime_error(error);
 			}
 
 			int right = stk.top();
@@ -92,8 +99,8 @@ int RPN::parseStk(const std::string &str)
 		{
 			if (stk.size() < 2)
 			{
-				std::cerr << "[ERROR]: Invalid expression." << std::endl;
-				exit(1);
+				std::string error = "[ERROR]: Invalid expression.";
+				throw std::runtime_error(error);
 			}
 
 			int right = stk.top();
@@ -109,8 +116,8 @@ int RPN::parseStk(const std::string &str)
 		{
 			if (stk.size() < 2)
 			{
-				std::cerr << "[ERROR]: Invalid expression." << std::endl;
-				exit(1);
+				std::string error = "[ERROR]: Invalid expression.";
+				throw std::runtime_error(error);
 			}
 
 			int right = stk.top();
@@ -123,22 +130,22 @@ int RPN::parseStk(const std::string &str)
 				stk.push(left / right);
 			else
 			{
-				std::cerr << "[ERROR]: Can't divide by '0'." << std::endl;
-				exit(1);
+				std::string error = "[ERROR]: Can't divide by '0'.";
+				throw std::runtime_error(error);
 			}
 		}
 
 		else
 		{
-			std::cerr << "[ERROR]: Invalid character: '" << str[i] << "'." << std::endl;
-			exit(1);
+			std::string error = "[ERROR]: Invalid character: '" + std::string(1, str[i]) + "'.";
+			throw std::runtime_error(error);
 		}
 	}
 
 	if (stk.size() != 1)
 	{
-		std::cerr << "[ERROR]: Invalid expression format." << std::endl;
-		exit(1);
+		std::string error = "[ERROR]: Invalid expression format.";
+		throw std::runtime_error(error);
 	}
 
 	return stk.top();
