@@ -5,15 +5,25 @@ int main(int argc, char** argv)
 	if (argc != 2)
 	{
 		std::cerr << "[ERROR]: The number of arguments is invalid." << std::endl;
-		exit(1);
+		return 1;
 	}
 
 	BitcoinExchange be;
 
-	be.loadDataBase("./data.csv");
-	be.checkFile(argv[1]);
+	try
+	{
+		be.loadDataBase("./data.csv");
+		be.checkFile(argv[1]);
+	}
+	catch(const std::runtime_error &e)
+	{
+		std::cout << e.what();
+		return 1;
+	}
 	
 	/* Print the database 
 	be.printDataBase();
 	*/
+
+	return 0;
 }

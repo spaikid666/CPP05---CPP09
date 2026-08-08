@@ -25,6 +25,22 @@ std::map<std::string, float> BitcoinExchange::getDataBase()
 	return this->_database;
 }
 
+void BitcoinExchange::setYear(const std::string &year)
+{
+	_year = year;
+}
+
+void BitcoinExchange::setMonth(const std::string &month)
+{
+	_month = month;
+}
+
+void BitcoinExchange::setDay(const std::string &day)
+{
+	_day = day;
+}
+
+
 
 void BitcoinExchange::printDataBase() const
 {
@@ -39,33 +55,48 @@ void BitcoinExchange::fileExtension(const std::string& filePath, std::string ext
 {
     if (filePath.size() < ext.size())
     {
-        std::cerr << "[ERROR]: The file name '" << filePath << "' is too short." << std::endl;
-        exit(1);
+        std::string error = "[ERROR]: The file name '" + filePath + "' is too short.";
+		throw std::runtime_error(error);
     }
     
     std::string fileExt = filePath.substr(filePath.size() - ext.size());
     if (fileExt != ext)
     {
-        std::cerr << "[ERROR]: The extension '" << fileExt << "' from '" << filePath << "' is not supported, try '" << ext << "'." << std::endl;
-        exit(1);
+        std::string error = "[ERROR]: The extension '" + fileExt + "' from '" + filePath + "' is not supported, try '" + ext + "'.";
+		throw std::runtime_error(error);
     }
 }
 
 void BitcoinExchange::fileNotEmpty(const std::string& filePath)
 {
-	int fd = open(filePath.c_str(), 0);
-	if(fd < 0)
+	std::ifstream file(filePath.c_str());
+
+	if (!file.is_open())
 	{
-		std::cerr << "[ERROR]: '" << filePath << "' doesn't exist or is not accessible." << std::endl;
-		exit(1);
+		std::string error = "[ERROR]: '" + filePath + "' doesn't exist or is not accessible.";
+		throw std::runtime_error(error);
 	}
+
 	char c;
-	if(!read(fd, &c, 1))
+
+	if (!file.get(c))
 	{
-		std::cerr << "[ERROR]: The file '" << filePath << "' is empty." << std::endl;
-		exit(1);
+		std::string error = "[ERROR]: The file '" + filePath + "' is empty.";
+		throw std::runtime_error(error);
 	}
-	close(fd);
+	
+	file.close();
+}
+
+bool BitcoinExchange::checkLeapYear(const std::string &year, const std::string &month, const std::string &day)
+{
+	int n_year = std::atoi(year.c_str());
+	bool isLeap = (n_year % 4 == 0 && n_year % 100 != 0) || (n_year % 400 == 0);
+	
+	if (month == "02" && day == "29")
+   		return isLeap;
+
+	return true;
 }
 
 bool BitcoinExchange::checkDate(std::string& date)
@@ -76,16 +107,40 @@ bool BitcoinExchange::checkDate(std::string& date)
 	if (date[4] != '-' || date[7] != '-')
         return false;
 
+	std::string year;
+	std::string month;
+	std::string day;
+
 	for (size_t i = 0; i < date.size(); i++)
     {
+		if (i < 4)
+			year.push_back(date[i]);
+
+		if (i > 4 && i < 7)
+			month.push_back(date[i]);
+
+		if (i > 7)
+			day.push_back(date[i]);
+
         if (i == 4 || i == 7)
             continue;
+
         if (!std::isdigit(date[i]))
             return false;
     }
 
 	if (date[5] > '1' || (date[5] == '1' && date[6] > '2') || (date[8] > '3') || (date[8] == '3' && date[9] > '1') || (date[5] == '0' && date[6] == '2' && date[8] > '2'))
 		return false;
+
+	setYear(year);
+	setMonth(month);
+	setDay(day);
+
+	if (!checkLeapYear(year, month, day))
+	{
+		std::string error = "[ERROR]: Invalid date.";
+		return false;
+	}
 
 	return true;
 }
@@ -113,8 +168,8 @@ void BitcoinExchange::fileFormat(const std::string& filePath)
 	std::getline(userDB, line);
 	if (line != "date | value")
 	{
-		std::cerr << "[ERROR]: The file '" << filePath << "' has an invalid format." << std::endl;
-		exit(1);
+		std::string error = "[ERROR]: The file '" + filePath + "' has an invalid format.";
+		throw std::runtime_error(error);
 	}
 
 	while (std::getline(userDB, line))
@@ -179,8 +234,8 @@ void BitcoinExchange::loadDataBase(const std::string& dbPath)
 	std::ifstream db(dbPath.c_str());
 	if (!db.good())
 	{
-		std::cerr << "[ERROR]: The data base failed to open." << std::endl;
-		exit(1);
+		std::string error = "[ERROR]: The data base failed to open.";
+		throw std::runtime_error(error);
 	}
 	std::string line;
 	size_t comma;
@@ -194,8 +249,8 @@ void BitcoinExchange::loadDataBase(const std::string& dbPath)
 		comma = line.find(',');
 		if (comma == std::string::npos)
 		{
-			std::cerr << "[ERROR]: The file '" << dbPath << "' has an invalid format." << std::endl;
-			exit(1);
+			std::string error = "[ERROR]: The file '" + dbPath + "' has an invalid format.";
+			throw std::runtime_error(error);
 		}
 		dateString = line.substr(0, comma);
 		priceString = line.substr(comma + 1);
