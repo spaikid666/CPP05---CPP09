@@ -1,28 +1,30 @@
-NAME 					= RPN
+NAME        = RPN
 
-C++						= c++ -std=c++98
+C++         = c++
 
-STD_FLAGS 				= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -std=c++98
 
-SRCS					= main.cpp \
-						  RPN.cpp
+SRCS        = main.cpp \
+              BitcoinExchange.cpp
 
-						  						  
-OBJS					= ${SRCS:.cpp=.o}
+OBJS        = ${SRCS:.cpp=.o}
 
-REMOVE					= rm -f ${OBJS}
+REMOVE		= rm -f ${OBJS}
 
-all:					${NAME}
+all:        ${NAME}
 
-${NAME}:
-						${C++} ${SRCS} ${STD_FLAGS} -o ${NAME}
+${NAME}:    ${OBJS}
+			${C++} ${FLAGS} ${OBJS} -o ${NAME}
 
-clean:					
-						${REMOVE}
+%.o:		%.cpp
+			${C++} ${FLAGS} -c $< -o $@
 
-fclean:					clean
-						rm -f RPN
-						
-re:						fclean all
+clean:
+			${REMOVE}
 
-.PHONY:					all clean fclean re
+fclean:     clean
+			rm -f ${NAME}
+
+re:         fclean all
+
+.PHONY:     all clean fclean re
