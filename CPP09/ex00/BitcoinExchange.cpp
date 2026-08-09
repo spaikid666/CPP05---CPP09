@@ -53,16 +53,9 @@ void BitcoinExchange::printDataBase() const
 
 void BitcoinExchange::fileExtension(const std::string& filePath, std::string ext)
 {
-    if (filePath.size() < ext.size())
+	if (filePath.size() <= ext.size())
     {
         std::string error = "[ERROR]: The file name '" + filePath + "' is too short.";
-		throw std::runtime_error(error);
-    }
-    
-    std::string fileExt = filePath.substr(filePath.size() - ext.size());
-    if (fileExt != ext)
-    {
-        std::string error = "[ERROR]: The extension '" + fileExt + "' from '" + filePath + "' is not supported, try '" + ext + "'.";
 		throw std::runtime_error(error);
     }
 }
@@ -129,7 +122,7 @@ bool BitcoinExchange::checkDate(std::string& date)
             return false;
     }
 
-	if (date[5] > '1' || (date[5] == '1' && date[6] > '2') || (date[8] > '3') || (date[8] == '3' && date[9] > '1') || (date[5] == '0' && date[6] == '2' && date[8] > '2'))
+	if (date[5] > '1' || (date[5] == '1' && date[6] > '2') || (date[5] == '0' && date[6] == '0') || (date[8] == '0' && date[9] == '0') || (date[8] > '3') || (date[8] == '3' && date[9] > '1') || (date[5] == '0' && date[6] == '2' && date[8] > '2'))
 		return false;
 
 	setYear(year);
@@ -224,7 +217,16 @@ void BitcoinExchange::fileFormat(const std::string& filePath)
 
 void BitcoinExchange::checkFile(const char* filePath)
 {
-	fileExtension(filePath, ".txt");
+	std::string fileExt = filePath;
+	size_t dot = fileExt.find_last_of('.');
+
+	// I do this because if a '.' is not found the variable dot gets the value of std::string::npos which is the largest size_t as possible
+	if (dot == std::string::npos)
+		dot = 0;
+
+	fileExt = fileExt.substr(dot, fileExt.size());
+
+	fileExtension(filePath, fileExt);
 	fileNotEmpty(filePath);
 	fileFormat(filePath);
 }
